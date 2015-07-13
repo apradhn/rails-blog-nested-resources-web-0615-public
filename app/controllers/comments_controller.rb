@@ -6,8 +6,12 @@ class CommentsController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    @post.comments.build(params[:id])
-    @post.save
+    @comment =  @post.comments.build(comment_params)
+    @comment.save
     redirect_to @post
+  end
+
+  def comment_params
+    params.require(:comment).permit(:content)
   end
 end
